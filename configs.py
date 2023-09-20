@@ -1,22 +1,23 @@
-# (c) 
+# (c) @AbirHasan2005
+
 import os
 
 
 class Config(object):
-    API_ID = os.environ.get("API_ID")
-    API_HASH = os.environ.get("API_HASH")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN")
-    SESSION_NAME = os.environ.get("SESSION_NAME")
-    UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL")
-    LOG_CHANNEL = os.environ.get("LOG_CHANNEL")
-    DOWN_PATH = os.environ.get("DOWN_PATH")
-    TIME_GAP = int(os.environ.get("TIME_GAP"))
-    MAX_VIDEOS = int(os.environ.get("MAX_VIDEOS"))
-    STREAMTAPE_API_USERNAME = os.environ.get("STREAMTAPE_API_USERNAME")
-    STREAMTAPE_API_PASS = os.environ.get("STREAMTAPE_API_PASS")
-    MONGODB_URI = os.environ.get("MONGODB_URI")
-    BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY"))
-    BOT_OWNER = int(os.environ.get("BOT_OWNER"))
+    API_ID = int(os.environ.get("API_ID" , 14699743))
+    API_HASH = os.environ.get("API_HASH" ,"0cef89ed2c8025c16d2b4d42a1b8d792")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN" ,"5735916294:AAEg04uF6lLYbCNltKuSNgEi23dX3yV48hs")
+    SESSION_NAME = os.environ.get("SESSION_NAME", "Video-Merge-Bot")
+    UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL" ,"-1001764670025")
+    LOG_CHANNEL = os.environ.get("LOG_CHANNEL" ,"-1001764670025")
+    DOWN_PATH = os.environ.get("DOWN_PATH", "./downloads")
+    TIME_GAP = int(os.environ.get("TIME_GAP", 5))
+    MAX_VIDEOS = int(os.environ.get("MAX_VIDEOS", 4))
+    STREAMTAPE_API_USERNAME = os.environ.get("STREAMTAPE_API_USERNAME" ,"5eb945e0fc5266091de2")
+    STREAMTAPE_API_PASS = os.environ.get("STREAMTAPE_API_PASS" ,"gLV2QdvKaRhqlrJ")
+    MONGODB_URI = os.environ.get("MONGODB_URI" ,"mongodb+srv://ronaghhossein:uBp1JHQKvU7nrZ0l@cluster0.onbwzwb.mongodb.net/?retryWrites=true&w=majority")
+    BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
+    BOT_OWNER = int(os.environ.get("BOT_OWNER", 5059280908))
 
     START_TEXT = """
 𝐇𝐢 𝐃𝐞𝐚𝐫 𝐔𝐬𝐞𝐫 , 𝐈 𝐚𝐦 𝐕𝐢𝐝𝐞𝐨 𝐌𝐞𝐫𝐠𝐞 𝐁𝐨𝐭!

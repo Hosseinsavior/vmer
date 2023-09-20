@@ -1,16 +1,10 @@
-# (c) @Savior_128
+# (c) @AbirHasan2005
 # This is very simple Telegram Videos Merge Bot.
 # Coded by a Nub.
 # Don't Laugh seeing the codes.
 # Me learning.
-from dotenv import load_dotenv
 
-load_dotenv(
-    "config.env",
-    override=True,
-)
 import os
-import sys
 import time
 import string
 import shutil
@@ -18,9 +12,8 @@ import psutil
 import random
 import asyncio
 from PIL import Image
-import pyromod.listen
-from datetime import datetime
 from configs import Config
+from pyromod import listen
 from pyrogram import Client, filters
 from helpers.markup_maker import MakeButtons
 from helpers.streamtape import UploadToStreamtape
@@ -45,7 +38,7 @@ ReplyDB = {}
 FormtDB = {}
 NubBot = Client(
     session_name=Config.SESSION_NAME,
-    api_id=Config.API_ID,
+    api_id=int(Config.API_ID),
     api_hash=Config.API_HASH,
     bot_token=Config.BOT_TOKEN
 )
@@ -63,11 +56,11 @@ async def start_handler(bot: Client, m: Message):
         quote=True,
         reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("𝐷𝑒𝑣𝑒𝑙𝑜𝑝𝑒𝑟 - 𝑆𝑎𝑣𝑖𝑜𝑟_128", url="https://t.me/Savior_128")],
-                [InlineKeyboardButton("𝑆𝑢𝑝𝑝𝑜𝑟𝑡 𝐶ℎ𝑎𝑛𝑛𝑒𝑙", url="https://t.me/danisooper"),
-                 InlineKeyboardButton("𝑂𝑡ℎ𝑒𝑟 𝐵𝑜𝑡", url="Siskiuploaderbot.t.me")],
-                [InlineKeyboardButton("𝑂𝑝𝑒𝑛 𝑆𝑒𝑡𝑡𝑖𝑛𝑔𝑠", callback_data="openSettings")],
-                [InlineKeyboardButton("𝐶𝑙𝑜𝑠𝑒", callback_data="closeMeh")]
+                [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")],
+                [InlineKeyboardButton("Support Group", url="https://t.me/linux_repo"),
+                 InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")],
+                [InlineKeyboardButton("Open Settings", callback_data="openSettings")],
+                [InlineKeyboardButton("Close", callback_data="closeMeh")]
             ]
         )
     )
@@ -100,7 +93,7 @@ async def videos_handler(bot: Client, m: Message):
         await m.reply_text(f"Sorry Sir,\nNo Flooding Allowed!\nSend Video After `{str(sleepTime)}s` !!", quote=True)
     else:
         editable = await m.reply_text("Please Wait ...", quote=True)
-        MessageText = "🇴 🇰 ,\n𝙉𝙤𝙬 𝙎𝙚𝙣𝙙 𝙈𝙚 𝙉𝙚𝙭𝙩 𝙑𝙞𝙙𝙚𝙤 𝙤𝙧 𝙋𝙧𝙚𝙨𝙨 𝙈𝙚𝙧𝙜𝙚 𝙉𝙤𝙬 𝘽𝙪𝙩𝙩𝙤𝙣!"
+        MessageText = "Okay,\nNow Send Me Next Video or Press **Merge Now** Button!"
         if QueueDB.get(m.from_user.id, None) is None:
             QueueDB.update({m.from_user.id: []})
         if (len(QueueDB.get(m.from_user.id)) >= 0) and (len(QueueDB.get(m.from_user.id)) <= Config.MAX_VIDEOS):
@@ -111,9 +104,9 @@ async def videos_handler(bot: Client, m: Message):
                 FormtDB.update({m.from_user.id: media.file_name.rsplit(".", 1)[-1].lower()})
             await asyncio.sleep(Config.TIME_GAP)
             if len(QueueDB.get(m.from_user.id)) == Config.MAX_VIDEOS:
-                MessageText = "𝙊𝙠𝙖𝙮 , 𝙉𝙤𝙬 𝙅𝙪𝙨𝙩 𝙋𝙧𝙚𝙨𝙨 𝙈𝙚𝙧𝙜𝙚 𝙉𝙤𝙬 𝘽𝙪𝙩𝙩𝙤𝙣 𝙋𝙡𝙤𝙭!"
+                MessageText = "Okay Unkil, Now Just Press **Merge Now** Button Plox!"
             markup = await MakeButtons(bot, m, QueueDB)
-            await editable.edit(text="𝒀𝒐𝒖𝒓 𝑽𝒊𝒅𝒆𝒐 𝑨𝒅𝒅𝒆𝒅 𝒕𝒐 𝑸𝒖𝒆𝒖𝒆!")
+            await editable.edit(text="Your Video Added to Queue!")
             reply_ = await m.reply_text(
                 text=MessageText,
                 reply_markup=InlineKeyboardMarkup(markup),
@@ -123,7 +116,7 @@ async def videos_handler(bot: Client, m: Message):
         elif len(QueueDB.get(m.from_user.id)) > Config.MAX_VIDEOS:
             markup = await MakeButtons(bot, m, QueueDB)
             await editable.edit(
-                text=f"Sorry Unkil,\nMax {str(Config.MAX_VIDEOS)} ᴠɪᴅᴇᴏꜱ ᴀʟʟᴏᴡᴇᴅ ᴛᴏ ᴍᴇʀɢᴇ ᴛᴏɢᴇᴛʜᴇʀ!\nᴘʀᴇꜱꜱ **ᴍᴇʀɢᴇ ɴᴏᴡ** ʙᴜᴛᴛᴏɴ ɴᴏᴡ!",
+                text=f"Sorry Unkil,\nMax {str(Config.MAX_VIDEOS)} Videos Allowed to Merge Together!\nPress **Merge Now** Button Now!",
                 reply_markup=InlineKeyboardMarkup(markup)
             )
 
@@ -334,7 +327,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 user = await bot.get_chat_member(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL), user_id=cb.message.chat.id)
                 if user.status == "kicked":
                     await cb.message.edit(
-                        text="Sorry Sir, You are Banned to use me. Contact my [Support Channel](https://t.me/danisooper).",
+                        text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/linux_repo).",
                         parse_mode="markdown",
                         disable_web_page_preview=True
                     )
@@ -362,7 +355,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 return
             except Exception:
                 await cb.message.edit(
-                    text="Something went Wrong. Contact my [Support Channel](https://t.me/danisooper).",
+                    text="Something went Wrong. Contact my [Support Group](https://t.me/linux_repo).",
                     parse_mode="markdown",
                     disable_web_page_preview=True
                 )
@@ -370,7 +363,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         await cb.message.edit(
             text=Config.START_TEXT,
             parse_mode="Markdown",
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Developer - Savior_128", url="https://t.me/Savior_128"), InlineKeyboardButton("Support Channel", url="https://t.me/danisooper")], [InlineKeyboardButton("𝑂𝑡ℎ𝑒𝑟 𝐵𝑜𝑡", url="Siskiuploaderbot.t.me")]]),
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005"), InlineKeyboardButton("Support Group", url="https://t.me/linux_repo")], [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")]]),
             disable_web_page_preview=True
         )
     elif "showThumbnail" in cb.data:
@@ -440,7 +433,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         if (QueueDB.get(cb.from_user.id, None) is None) or (QueueDB.get(cb.from_user.id) == []):
             await cb.answer("Sorry Unkil, Your Queue is Empty!", show_alert=True)
             return
-        merged_vid_path = f"{Config.DOWN_PATH}/{str(cb.from_user.id)}/[@Savior_128]_Merged.{FormtDB.get(cb.from_user.id).lower()}"
+        merged_vid_path = f"{Config.DOWN_PATH}/{str(cb.from_user.id)}/[@AbirHasan2005]_Merged.{FormtDB.get(cb.from_user.id).lower()}"
         if cb.data.split("_", 1)[-1] == "Yes":
             await cb.message.edit("Okay Unkil,\nSend me new file name!")
             try:
